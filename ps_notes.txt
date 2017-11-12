@@ -1,0 +1,31 @@
+// To run a .ps1 file:
+.\filename.ps1
+
+// To run a .psm1 file (a module file)
+Import-Module .\filename.psm1
+
+// To remove a .psm1 file (note LACK of suffix)
+Remove-Module filename
+
+// To get help on a command
+Get-Help CommandName
+
+// To get ALL the help on a command
+Get-Help -full CommandName
+
+// To get ONLINE the help on a command
+Get-Help -online CommandName
+
+// To see a list of available properties for AD Groups:
+$AzureGroups = Get-AzureADGroup
+$AzureGroups[0] | Get-Member
+
+// To get PSSessions
+Get-PSSession
+
+// To remove ALL PSSession(s)
+Get-PSSession | Remove-PSSession
+
+// To paste in multi-line (press enter twice)
+Shift-Insert
+

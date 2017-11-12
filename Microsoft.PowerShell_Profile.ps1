@@ -1,6 +1,9 @@
 #requires -modules oh-my-posh
 Set-Theme agnoster
 
+# Powershell Community Extensions
+Import-Module Pscx
+
 #PSReadline Stuff
 Set-PSReadlineOption -TokenKind Command -ForeGroundColor Cyan
 Set-PSReadlineOption -EditMode EMACS
@@ -15,4 +18,16 @@ if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
 
-Write-Out "Powershell profile loaded!"
+$OnlineTest = Read-Host -Prompt "Do you want the O365 cmdlets?"
+
+If($OnlineTest -eq "y") {
+    $Creds = Get-Credential -Message "Enter your O365 credentials"
+    $session = New-PSSession -ConfigurationName Microsoft.Exchange `
+                             -ConnectionUri https://outlook.office365.com/powershell-liveid/ `
+                             -Credential $Creds `
+                             -Authentication Basic `
+                             -AllowRedirection
+    Import-PSSession $session
+}
+
+Write-Output "Powershell profile loaded!"
