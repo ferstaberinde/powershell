@@ -29,13 +29,14 @@ Function Get-O365GroupsToCSV {
         $ThisGroup = New-Object -Type PSCustomObject
         $ThisGroup | Add-Member -NotePropertyName DisplayName -NotePropertyValue $_.DisplayName
         $ThisGroup | Add-Member -NotePropertyName AccessType -NotePropertyValue $_.AccessType
-        $ThisGroup | Add-Member -NotePropertyName Description -NotePropertyValue $_.Notes
         $ThisGroup | Add-Member -NotePropertyName Owners -NotePropertyValue $_.ManagedBy
         $ThisGroup | Add-Member -NotePropertyName MembersCount -NotePropertyValue $_.GroupMemberCount 
         $ThisGroup | Add-Member -NotePropertyName ExtMembersCount -NotePropertyValue $_.GroupExternalMemberCount
-        # $ThisGroup | Add-Member -NotePropertyName Email -NotePropertyValue $_.EmailAddresses
         $ThisGroup | Add-Member -NotePropertyName PrimaryEmail -NotePropertyValue $_.PrimarySmtpAddress
         $ThisGroup | Add-Member -NotePropertyName AutoSub -NotePropertyValue $_.AutoSubscribeNewMembers
+        $ThisGroup | Add-Member -NotePropertyName CreatedUTC -NotePropertyValue $_.WhenCreatedUTC
+        $ThisGroup | Add-Member -NotePropertyName IsValid -NotePropertyValue $_.IsValid
+        $ThisGroup | Add-Member -NotePropertyName Description -NotePropertyValue $_.Notes
         $GroupOutput += $ThisGroup
     }
 # This block attempts to output the array of custom objects into a CSV file, then closes the PSSession IF it was created by this script
